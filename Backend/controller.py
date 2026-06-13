@@ -7,6 +7,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 from datetime import datetime
 from uuid import uuid4
+from flask_cors import CORS
 
 class MongoDb:
     def __init__(self, str_uri, str_db, str_convo_collection, str_flag_collection):
@@ -150,6 +151,7 @@ class ContextualQAModel:
     
 
 app = Flask(__name__)
+CORS(app)
 
 mdb = MongoDb("mongodb://localhost:27017", "contextual_qa", "contexts", "flagged")
 model = ContextualQAModel("Backend/model", mdb)
